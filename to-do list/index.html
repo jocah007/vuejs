@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+   
+    <div id="app" class="task-container">
+        <div class="header">
+            <h1> To-Do List</h1>
+            <div class="counter">
+            <h2 v-show="tasks.length >1">Você tem {{tasks.length}} tarefas,</h2>
+            <h2 v-show="tasks.length === 1">Você tem {{tasks.length}} tarefa,</h2>
+            <h2 v-show="tasksComplets ===1" class="taskscompletd">{{tasksComplets}} completada</h2>
+            <h2 v-show=" tasksComplets>1" class="taskscompletd">{{tasksComplets}}  completadas</h2>
+            <h2 v-show=" tasksComplets === 0 && tasks.length>=1 " class="taskscompletd">Nem uma completada</h2>
+            <h2 v-show="tasks.length ===0" class="taskscompletd">Você não tem tarefas</h2>
+            </div>
+        </div>
+
+        <ul class="task-list" id="task-list">
+
+            <li v-for="(task, index) in tasks" :key="task.id" class="task">
+                <input
+                type="checkbox" 
+                v-model="task.completed" 
+                :id="'task-checkbox-' + index"
+                class="checkbox">
+
+                <label :for="'task-checkbox-' + index" class="task-label">
+                    <span :class="{'completed': task.completed}">{{task.text}}</span>
+                </label>
+
+                <span @click="openModal(index)" 
+                class="remove-btn" >
+                <span class="material-symbols-outlined">delete</span>
+            	</span>
+            </li>
+
+           
+        </ul>
+            <div class="container-box"> 
+                <div class="entryStyle">
+                    <input @keyup.enter="createTask" v-model="newTask" class="task-entry" type="text" placeholder="Adicionar nova tarefa...">
+                    <button @click="createTask"  class="add-task-btn" id="add-task-btn">+</button>
+                </div>
+
+                <button @click="openmodalremovealltask" 
+                :disabled="tasks.length<=0" 
+                id="clear-tasks-btn" 
+                class="clear-btn">Limpar todas as tarefas</button>
+             </div>
+
+            <dialog ref="modalRemoveTask" class="dialogRemove">
+                <p>Você quer mesmo excluir esta tarefa?</p>   
+                <div class="removetask">
+                    <button @click="deletetask(taskIndexToDelete)">Sim</button>
+                    <button @click="closemodalRemove" class="cancel">Não</button>
+                </div>
+            </dialog>
+
+            <dialog ref="modalremovealltask" class="removeAllTasks">
+                <p>Você quer mesmo excluir todas as tarefas?</p>   
+                <div class="removealltask">
+                    <button @click="deleteAllTasks">Sim</button>
+                    <button @click="closemomodalremovealltask" class="cancel2">Não</button>
+                </div>
+            </dialog>
+    </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

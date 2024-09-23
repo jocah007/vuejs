@@ -1,0 +1,380 @@
+:root {
+    /* Cores de Fundo */
+    --main-bg-color: #111827; /* Fundo principal */
+    --card-bg-color: #1F2937; /* Fundo do cartão */
+    --task-item-bg-color: #374151; /* Fundo do item da tarefa */
+    --task-item-hover-bg-color: #4B5563; /* Fundo do item da tarefa ao passar o mouse */
+  
+    /* Cores do Texto */
+    --main-title-color: #A78BFA; /* Título principal */
+    --task-count-color: #9CA3AF; /* Contagem de tarefas */
+    --task-text-color: #E5E7EB; /* Texto da tarefa */
+    --completed-task-text-color: #9CA3AF; /* Texto da tarefa completada */
+  
+    /* Cores dos Botões */
+    --add-task-btn-color: #8B5CF6; /* Botão adicionar tarefa */
+    --add-task-btn-hover-color: #7C3AED; /* Botão adicionar tarefa ao passar o mouse */
+    --clear-completed-btn-color: #EF4444; /* Botão limpar tarefas completadas */
+    --clear-completed-btn-hover-color: #DC2626; /* Botão limpar tarefas completadas ao passar o mouse */
+  
+    /* Cores de Acento */
+    --checkbox-border-color: #9CA3AF; /* Borda da checkbox (não marcada) */
+    --checkbox-checked-bg-color: #8B5CF6; /* Fundo da checkbox (marcada) */
+    --delete-icon-hover-color: #F87171; /* Ícone de deletar ao passar o mouse */
+  }
+
+html{
+    font-size: 62.5%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--main-bg-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.task-container {
+    border-radius: .8rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 40rem;
+    width: 100%;
+    font-size: 1.6rem;
+    position: relative;
+    background-color: var(--card-bg-color);
+}  
+
+.task-entry {
+    all: unset;
+    width: 100%;
+    border-radius: .8rem 0 0 .8rem;
+    background-color: var(--task-item-bg-color);
+    border-right: none;
+    outline: none;
+    padding-left: 2rem;
+}
+
+abel {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+input:focus {
+    color: white;
+    background-color: var(--task-item-hover-bg-color);
+}
+
+.task-entry::placeholder {
+   color: var(--task-count-color);
+}
+
+.entryStyle {
+    width: 100%;
+    display: flex; 
+    margin-top: 3rem;  
+}
+
+/* Botão  para adicionar nova tarefa */
+.add-task-btn  {
+    all: unset;
+    background-color: var(--add-task-btn-color);
+    color: white;
+    font-size: 4rem;
+    border-left: none;
+    width: 5rem;
+    height: 4rem;
+    display: flex;
+    display: ruby-base;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-radius: 0 .8rem .8rem 0;
+}
+
+.counter {
+    display: flex;
+    font-size: .9rem;
+    gap: .8rem;
+    color: var(--task-count-color);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    padding: .2rem;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: var(--main-title-color);
+}
+
+.header h2 {
+    margin-top: .1rem;  
+}
+
+.header h2 .disabled{
+    opacity: 0;
+}
+
+/* Estilos da lista de tarefas */
+.task-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; 
+    display: flex;  
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--task-item-bg-color);
+    transition: background-color 0.3s ease;
+    color: var(--task-text-color);
+    border-radius: 1rem;
+}
+
+.task-text {
+    transition: all 0.3s ease;
+}
+
+/* Checkbox estilizado */
+.checkbox {
+    width: 2.3rem;
+    height: 2.3rem;
+    margin-right: 1rem;
+   position: relative;
+    border: .2rem solid var(--checkbox-border-color);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Quando o checkbox estiver marcado */
+.checkbox:before{
+    content: '✔'; /* Aqui é o símbolo de check */
+    position: absolute;
+    height: 2.3rem;
+    width: 2.3rem;
+    background-color: var(--checkbox-checked-bg-color);
+    border-radius: 50%;
+    outline: none;
+    opacity: 0; 
+}
+
+.checkbox:checked {
+    content: '✔'; 
+    color: white; 
+    text-align: center; 
+    line-height: 2.6rem; 
+}
+
+.checkbox:checked:before {
+    opacity: 1;
+}
+
+/* Estilizando a label (o texto da tarefa) */
+label {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+/* Estilo ao passar o mouse sobre a tarefa */
+.task:hover {
+    background-color: var(--task-item-hover-bg-color);
+}
+
+/* Estilo quando a tarefa for concluída (checkbox marcado) */
+.completed {
+    color: #a0a0a0;
+    text-decoration: line-through; /
+}
+
+
+
+/* Botão de remover tarefa */
+.remove-btn {
+    color: #858383d6;
+    margin-left: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    opacity: 0;
+}
+
+/* Mostra o botão de remover ao passar o mouse na tarefa */
+.task:hover .remove-btn {
+    opacity: 1;
+    color: #858383d6; 
+}
+
+.material-symbols-outlined{
+    color: var(--delete-icon-hover-color);
+    font-size: 1.5rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 0
+}
+
+
+/* Botão para limpar todas as tarefas */
+.clear-btn {
+    width: 50%;
+    padding: 1rem .2rem 1rem .2rem;
+    background-color:var(--clear-completed-btn-color);
+    color: white;
+    border: none;
+    border-radius: .4rem;
+    cursor: pointer;
+    margin-top: 4rem;
+    transition: background-color 0.3s ease;
+    right:50%
+}
+
+.clear-btn:hover {
+    background-color: var(--clear-completed-btn-hover-color); 
+}
+
+/* Estilos para o botão desabilitado */
+.clear-btn:disabled {
+    opacity: 0;
+    cursor: auto;
+}
+
+.container-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.add-task-btn:hover {
+    background-color: var(--add-task-btn-hover-color); 
+}
+
+/* Estilo para o campo de input da nova tarefa dentro do diálogo */
+dialog {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 30rem;
+    max-width: 80%;
+    position: fixed;
+    top: 50%;
+    left: 18%;
+    transform: translate(-40%, -50%); /* Centraliza horizontal e verticalmente */
+    background-color: var(--task-item-bg-color);
+    color: var(--task-text-color);
+}
+
+dialog::backdrop {
+    background: rgba(45, 45, 45, 0.571); /* Fundo escurecido atrás do diálogo */
+}
+
+.removetask {
+    display: flex;
+    justify-content: center;
+    gap: 6rem;
+}
+
+.removetask button {
+    background-color: var(--add-task-btn-color);
+    color: var(--task-text-color);
+    border: none;
+    border-radius: 4rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.removetask button:hover{
+    background-color: var(--add-task-btn-hover-color);
+}
+
+.removetask .cancel  {
+    background-color:var(--clear-completed-btn-color);
+    margin-left: 1rem;
+}
+
+.removetask .cancel:hover{
+    background-color: var(--clear-completed-btn-hover-color);
+}
+
+.dialogRemove p {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: .6rem;
+    margin-bottom: 2rem;
+    counter-reset: var(--task-text-color);
+}
+
+.removealltask {
+    display: flex;
+    justify-content: center;
+    gap: 6rem;
+}
+
+.removealltask button {
+    background-color: var(--add-task-btn-color);
+    color: var(--task-text-color);
+    border: none;
+    border-radius: 4rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.removealltask button:hover {
+    background-color: var(--add-task-btn-hover-color);
+}
+
+.removealltask .cancel2 {
+    background-color: var(--clear-completed-btn-color);
+    margin-left: 1rem;
+}
+
+.removealltask .cancel2:hover{
+    background-color: var(--clear-completed-btn-hover-color);
+}
+
+.removeAllTasks {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: .6rem;
+    margin-bottom: 2rem;
+}
+    
+    
+
+
+
+
+
+
